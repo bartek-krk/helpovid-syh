@@ -3,8 +3,10 @@ package pl.ddcrew.helpovid.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.ddcrew.helpovid.aspect.annotation.CheckUserAvailability;
+import pl.ddcrew.helpovid.exception.UserNotFoundException;
 import pl.ddcrew.helpovid.model.User;
 import pl.ddcrew.helpovid.repository.UserRepository;
+import pl.ddcrew.helpovid.service.LocationService;
 import pl.ddcrew.helpovid.service.UserService;
 
 import java.util.List;
@@ -14,9 +16,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    LocationService locationService;
+
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        if(users.isEmpty()) throw new UserNotFoundException();
+        else return users;
     }
 
     @Override
@@ -28,6 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @CheckUserAvailability
     public void registerUser(User user) {
+        locationService.saveLocation(user.getLocation());
         userRepository.save(user);
     }
 }

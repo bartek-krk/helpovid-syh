@@ -19,9 +19,13 @@ public class UserAvailabilityAdvice {
 
     @Around("@annotation(pl.ddcrew.helpovid.aspect.annotation.CheckUserAvailability)")
     public void checkUserAvailability(ProceedingJoinPoint pjp) throws Throwable{
-        User user;
-        if(pjp.getArgs()[0] instanceof User) user = (User) pjp.getArgs()[0];
-        else throw new UnsupportedMediaTypeException();
+        User user = (User) pjp.getArgs()[0];
+        boolean isValidUser = user.geteMail()!=null &&
+                user.getPhoneNumber()!=null &&
+                user.getName()!=null &&
+                user.getPassword()!=null &&
+                user.getLocation()!=null;
+        if(!isValidUser) throw new UnsupportedMediaTypeException();
         if(userService.checkUserAvailability(user)) pjp.proceed();
         else throw new UserAlreadyExistsException();
     }

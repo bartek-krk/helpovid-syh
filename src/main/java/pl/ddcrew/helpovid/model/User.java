@@ -1,6 +1,7 @@
 package pl.ddcrew.helpovid.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,7 +20,9 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private Location location;
 
     public Long getId() {

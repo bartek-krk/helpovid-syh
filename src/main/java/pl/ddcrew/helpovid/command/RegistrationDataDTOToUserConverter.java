@@ -22,8 +22,6 @@ public class RegistrationDataDTOToUserConverter implements Converter<Registratio
         user.setPassword(registrationDataDTO.getPassword());
 
         Location location = new Location(registrationDataDTO.getLatitude(), registrationDataDTO.getLongitude());
-        locationService.saveLocation(location);
-
         user.setLocation(location);
         return user;
     }

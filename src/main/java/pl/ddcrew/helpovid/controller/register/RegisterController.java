@@ -7,7 +7,7 @@ import pl.ddcrew.helpovid.repository.UserRepository;
 import pl.ddcrew.helpovid.service.UserService;
 
 @RestController
-@RequestMapping(value = "/register")
+@RequestMapping(value = "/api/register")
 public class RegisterController {
     @Autowired
     UserService userService;
