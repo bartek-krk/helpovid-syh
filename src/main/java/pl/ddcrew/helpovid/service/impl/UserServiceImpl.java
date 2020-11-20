@@ -10,6 +10,7 @@ import pl.ddcrew.helpovid.service.LocationService;
 import pl.ddcrew.helpovid.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,5 +38,12 @@ public class UserServiceImpl implements UserService {
     public void registerUser(User user) {
         locationService.saveLocation(user.getLocation());
         userRepository.save(user);
+    }
+
+    @Override
+    public User getByPhoneNumber(String phoneNumber) {
+        User user = userRepository.getByphoneNumber(phoneNumber).orElse(null);
+        if(user == null) throw new UserNotFoundException();
+        else return user;
     }
 }
