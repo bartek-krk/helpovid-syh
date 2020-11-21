@@ -21,6 +21,7 @@ public class Order {
 
     private String title;
     private String content;
+    private double distance;
     private boolean isTaken;
 
     public Long getId() {
@@ -63,5 +64,11 @@ public class Order {
         isTaken = taken;
     }
 
+    public double getDistance() {
+        return distance;
+    }
 
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 }

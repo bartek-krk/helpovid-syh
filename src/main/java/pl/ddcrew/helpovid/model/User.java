@@ -3,7 +3,6 @@ package pl.ddcrew.helpovid.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,6 +17,8 @@ public class User {
     private String eMail;
     private String phoneNumber;
     private String name;
+
+    private int points;
 
     @JsonIgnore
     private String password;
@@ -62,6 +63,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public String getPassword() {

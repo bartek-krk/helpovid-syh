@@ -7,8 +7,10 @@ import pl.ddcrew.helpovid.aspect.annotation.RestrictedAccess;
 import pl.ddcrew.helpovid.command.OrderDataDAOToOrderConverter;
 import pl.ddcrew.helpovid.exception.UnsupportedMediaTypeException;
 import pl.ddcrew.helpovid.model.Order;
+import pl.ddcrew.helpovid.model.User;
 import pl.ddcrew.helpovid.security.TokenAuthDAO;
 import pl.ddcrew.helpovid.service.OrderService;
+import pl.ddcrew.helpovid.service.UserService;
 
 import java.util.List;
 import java.util.Map;
@@ -20,11 +22,18 @@ public class OrderController {
     OrderService orderService;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     OrderDataDAOToOrderConverter orderDataDAOToOrderConverter;
 
-    @GetMapping
-    public List<Order> getOrders(){
-        return orderService.getAllOrders();
+    @GetMapping(value = "/all")
+    @RestrictedAccess
+    public List<Order> getOrders(@RequestBody Map<String,Object> payload){
+        ObjectMapper om = new ObjectMapper();
+        TokenAuthDAO tokenAuthDAO = om.convertValue(payload.get("credentials"), TokenAuthDAO.class);
+        User user = userService.getById(tokenAuthDAO.getUserId());
+        return orderService.getAllOrders(user);
     }
 
     @PostMapping(value = "/place")
