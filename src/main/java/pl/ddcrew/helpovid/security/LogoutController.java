@@ -6,6 +6,7 @@ import pl.ddcrew.helpovid.service.SessionService;
 
 @RestController
 @RequestMapping(value = "/api/logout")
+@CrossOrigin(value = "*")
 public class LogoutController {
     @Autowired
     SessionService sessionService;

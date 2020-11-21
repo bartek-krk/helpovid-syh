@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/order")
+@CrossOrigin(value = "*")
 public class OrderController {
     @Autowired
     OrderService orderService;
@@ -27,7 +28,7 @@ public class OrderController {
     @Autowired
     OrderDataDAOToOrderConverter orderDataDAOToOrderConverter;
 
-    @GetMapping(value = "/all")
+    @PostMapping(value = "/all")
     @RestrictedAccess
     public List<Order> getOrders(@RequestBody Map<String,Object> payload){
         ObjectMapper om = new ObjectMapper();

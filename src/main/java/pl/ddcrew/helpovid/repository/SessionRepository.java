@@ -10,4 +10,5 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     public boolean existsByUserId (Long userId);
     public void deleteByUserIdAndToken(Long userId, String token);
     public Optional<Session> findByUserId(Long userId);
+    public Optional<Session> findByUserIdAndToken(Long userId, String token);
 }

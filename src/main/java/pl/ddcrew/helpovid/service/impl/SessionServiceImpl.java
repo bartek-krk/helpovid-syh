@@ -57,7 +57,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public boolean isInTime(TokenAuthDAO tokenAuthDAO) {
         if(sessionRepository.existsByUserId(tokenAuthDAO.getUserId())){
-            if(sessionRepository.findByUserId(tokenAuthDAO.getUserId()).orElse(null).getTimeout() > Instant.now().getEpochSecond()){
+            if(sessionRepository.findByUserIdAndToken(tokenAuthDAO.getUserId(), tokenAuthDAO.getToken()).orElse(null).getTimeout() > Instant.now().getEpochSecond()){
                 return true;
             }
             else return false;
