@@ -12,7 +12,6 @@ public class CredentialsAuthorization {
     private UserService userService;
 
     public boolean authorize(LoginDTO loginDTO){
-        System.out.println(loginDTO.getPhoneNumber());
         User user = userService.getByPhoneNumber(loginDTO.getPhoneNumber());
         if(user.getPassword().equals(loginDTO.getPassword())) return true;
         else throw new UnauthorizedException();

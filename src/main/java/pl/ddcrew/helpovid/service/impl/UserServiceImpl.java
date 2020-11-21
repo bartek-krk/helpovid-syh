@@ -46,4 +46,11 @@ public class UserServiceImpl implements UserService {
         if(user == null) throw new UserNotFoundException();
         else return user;
     }
+
+    @Override
+    public User getById(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user == null) throw new UserNotFoundException();
+        else return user;
+    }
 }

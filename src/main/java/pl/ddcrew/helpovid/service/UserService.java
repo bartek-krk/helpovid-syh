@@ -11,4 +11,5 @@ public interface UserService {
     public boolean checkUserAvailability(User user);
     public void registerUser(User user);
     public User getByPhoneNumber(String phoneNumber);
+    public User getById(Long id);
 }

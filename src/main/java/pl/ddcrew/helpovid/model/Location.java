@@ -1,20 +1,23 @@
 package pl.ddcrew.helpovid.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+
 @Entity
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToMany(mappedBy = "location", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
-    @JsonBackReference
+    @JsonManagedReference
     private Set<User> users;
+
     private double latitude;
     private double longitude;
 

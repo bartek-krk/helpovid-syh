@@ -1,12 +1,14 @@
 package pl.ddcrew.helpovid.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Data
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,8 +24,13 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Location location;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<Order> orders;
 
     public Long getId() {
         return id;
@@ -71,5 +78,13 @@ public class User {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }
