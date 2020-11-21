@@ -47,4 +47,14 @@ public class OrderController {
         orderDataDAO.setOwnerId(tokenAuthDAO.getUserId());
         orderService.saveOrder(orderDataDAOToOrderConverter.convert(orderDataDAO));
     }
+
+    @PutMapping(value = "/take")
+    @RestrictedAccess
+    public void takeOrder(@RequestBody  Map<String,Object> payload){
+        ObjectMapper om = new ObjectMapper();
+        TokenAuthDAO tokenAuthDAO = om.convertValue(payload.get("credentials"), TokenAuthDAO.class);
+        Long orderId = new Long((Integer)payload.get("orderId"));
+        orderService.assignOrder(orderId, tokenAuthDAO.getUserId());
+    }
+
 }

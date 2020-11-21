@@ -1,7 +1,6 @@
 package pl.ddcrew.helpovid.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,7 +21,11 @@ public class Order {
     private String title;
     private String content;
     private double distance;
-    private boolean isTaken;
+
+    @ManyToOne
+    @JoinColumn(name = "assignned_order")
+    @JsonBackReference
+    private User assignee;
 
     public Long getId() {
         return id;
@@ -56,19 +59,19 @@ public class Order {
         this.content = content;
     }
 
-    public boolean isTaken() {
-        return isTaken;
-    }
-
-    public void setTaken(boolean taken) {
-        isTaken = taken;
-    }
-
     public double getDistance() {
         return distance;
     }
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public User getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(User asignee) {
+        this.assignee = asignee;
     }
 }

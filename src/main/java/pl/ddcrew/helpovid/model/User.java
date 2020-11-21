@@ -31,7 +31,12 @@ public class User {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     @JsonManagedReference
     @JsonIgnore
-    private Set<Order> orders;
+    private Set<Order> placedOrders;
+
+    @OneToMany(mappedBy = "assignee", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<Order> assignedOrders;
 
     public Long getId() {
         return id;
@@ -89,11 +94,11 @@ public class User {
         this.location = location;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Order> getPlacedOrders() {
+        return placedOrders;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setPlacedOrders(Set<Order> placedOrders) {
+        this.placedOrders = placedOrders;
     }
 }

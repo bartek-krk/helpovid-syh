@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService {
         if(user == null) throw new UserNotFoundException();
         else return user;
     }
+
+    @Override
+    public void addPoints(User user) {
+        user.setPoints(user.getPoints() + 5);
+        userRepository.save(user);
+    }
 }

@@ -12,4 +12,5 @@ public interface UserService {
     public void registerUser(User user);
     public User getByPhoneNumber(String phoneNumber);
     public User getById(Long id);
+    public void addPoints(User user);
 }
